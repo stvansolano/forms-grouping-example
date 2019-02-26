@@ -15,12 +15,12 @@ namespace FormsIssueProject.Services
 			items = new List<Item>();
 			var mockItems = new List<Item>
 			{
-				new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-				new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-				new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-				new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-				new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-				new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." },
+				new Item { Id = Guid.NewGuid().ToString(), Category = "Category 1", Text = "First item", Description="This is an item description." },
+				new Item { Id = Guid.NewGuid().ToString(), Category = "Category 1", Text = "Second item", Description="an item description." },
+				new Item { Id = Guid.NewGuid().ToString(), Category = "Category 2 with a very very very long text", Text = "Fourth item", Description="This is an item description." },
+				new Item { Id = Guid.NewGuid().ToString(), Category = "This is category 3 with a very very long text", Text = "Fourth item", Description="This is an item description." },
+				new Item { Id = Guid.NewGuid().ToString(), Category = "Category 3 with a very long text", Text = "Fifth item", Description="This unique description." },
+				new Item { Id = Guid.NewGuid().ToString(), Category = "Category 4", Text = "Sixth item", Description="This is a short text." },
 			};
 
 			foreach (var item in mockItems)

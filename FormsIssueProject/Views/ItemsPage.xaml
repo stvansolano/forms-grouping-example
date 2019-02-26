@@ -1,5 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="FormsIssueProject.Views.ItemsPage" Title="{Binding Title}" x:Name="BrowseItemsPage">
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="FormsIssueProject.Views.ItemsPage" 
+             xmlns:converters="clr-namespace:FormsIssueProject.Converters;assembly=FormsIssueProject"
+             Title="{Binding Title}" x:Name="BrowseItemsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:GroupHeightConverter x:Key="HeightConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Clicked="AddItem_Clicked">
             <ToolbarItem.Icon>
@@ -10,17 +19,62 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <ListView x:Name="ItemsListView" ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadItemsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement" ItemSelected="OnItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Text}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                            <Label Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ListView x:Name="ItemsListView"
+                  ItemsSource="{Binding Items}" 
+                  GroupDisplayBinding="{Binding Key}"
+                  IsGroupingEnabled="true"   
+                  Margin="20" 
+                  IsRefreshing="{Binding IsBusy}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding LoadItemsCommand}"
+                  HasUnevenRows="True">
+        <ListView.GroupHeaderTemplate> 
+          <DataTemplate>
+            <ViewCell>
+                <!--
+                     HeightRequest="{Binding Path=Key, Converter={StaticResource HeightConverter_GroupHeader}}" 
+
+                -->      
+              
+              <Label Text="{Binding Key}" VerticalTextAlignment="Center" VerticalOptions="Fill" 
+                     FontAttributes="Bold" BackgroundColor="Blue" TextColor="White" FontSize="24"
+                     HeightRequest="{Binding Key,Converter={StaticResource HeightConverter}}" 
+                     LineBreakMode="WordWrap" Margin="10,0,0,0" />                            
+            </ViewCell>
+          </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell StyleId="disclosure">
+                            
+              <Grid VerticalOptions="Fill" RowSpacing="0" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                            <!-- 
+                                {Binding Path=Key,Converter={StaticResource HeightConverter}}
+                            -->
+                <Label Grid.Column="0" Text="{Binding Description, Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"
+                              HeightRequest="{Binding Description,Converter={StaticResource HeightConverter}}" 
+                       Margin="20,0,0,0" FontSize="24" LineBreakMode="WordWrap" BackgroundColor="Green" />
+                <Grid Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalOptions="End" 
+                             WidthRequest="100"
+                             HeightRequest="50"
+                             Margin="0,0,0,0" RowSpacing="0">       
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+                                    
+                  <Label Grid.Row="0" Text="100" VerticalOptions="Fill" VerticalTextAlignment="End" HorizontalOptions="Fill" HorizontalTextAlignment="Center" 
+                         FontSize="24" Margin="0,0,0,0"/>
+                  <Label Grid.Row="1" Text="km" VerticalOptions="Fill" VerticalTextAlignment="Start" HorizontalOptions="Fill" HorizontalTextAlignment="Center" 
+                         FontSize="24" Margin="0,0,0,0"/>
+                </Grid>        
+             </Grid>
+            </ViewCell>                
+          </DataTemplate>
+        </ListView.ItemTemplate>
+
+      </ListView>
     </StackLayout>
 </ContentPage>
