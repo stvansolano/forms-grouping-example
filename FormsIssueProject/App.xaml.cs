@@ -13,7 +13,6 @@ namespace FormsIssueProject
 		{
 			InitializeComponent();
 
-
 			MainPage = new MainPage();
 		}
 

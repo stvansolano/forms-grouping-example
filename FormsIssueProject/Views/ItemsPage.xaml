@@ -9,15 +9,6 @@
             <converters:GroupHeightConverter x:Key="HeightConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="AddItem_Clicked">
-            <ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="UWP" Value="add.png" />
-                </OnPlatform>
-            </ToolbarItem.Icon>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
     <StackLayout>
         <ListView x:Name="ItemsListView"
                   ItemsSource="{Binding Items}" 
@@ -28,11 +19,7 @@
                   HasUnevenRows="True">
         <ListView.GroupHeaderTemplate> 
           <DataTemplate>
-            <ViewCell>
-                <!--
-                     HeightRequest="{Binding Path=Key, Converter={StaticResource HeightConverter_GroupHeader}}" 
-
-                -->      
+            <ViewCell> 
               
               <Label Text="{Binding Key}" VerticalTextAlignment="Center" VerticalOptions="Fill" 
                      FontAttributes="Bold" BackgroundColor="Blue" TextColor="White" FontSize="24"
@@ -67,14 +54,13 @@
                                     
                   <Label Grid.Row="0" Text="100" VerticalOptions="Fill" VerticalTextAlignment="End" HorizontalOptions="Fill" HorizontalTextAlignment="Center" 
                          FontSize="24" Margin="0,0,0,0"/>
-                  <Label Grid.Row="1" Text="km" VerticalOptions="Fill" VerticalTextAlignment="Start" HorizontalOptions="Fill" HorizontalTextAlignment="Center" 
+                  <Label Grid.Row="1" Text="units" VerticalOptions="Fill" VerticalTextAlignment="Start" HorizontalOptions="Fill" HorizontalTextAlignment="Center" 
                          FontSize="24" Margin="0,0,0,0"/>
                 </Grid>        
              </Grid>
             </ViewCell>                
           </DataTemplate>
         </ListView.ItemTemplate>
-
       </ListView>
     </StackLayout>
 </ContentPage>

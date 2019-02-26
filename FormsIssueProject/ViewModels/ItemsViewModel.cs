@@ -23,13 +23,6 @@ namespace FormsIssueProject.ViewModels
 			Title = "Browse";
 			Items = new ObservableCollection<Grouping<string, Item>>();
 			LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-			MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-			{
-				var newItem = item as Item;
-				//Items.Add(newItem);
-				//await DataStore.AddItemAsync(newItem);
-			});
 		}
 
 		async Task ExecuteLoadItemsCommand()
@@ -44,9 +37,7 @@ namespace FormsIssueProject.ViewModels
 				Items.Clear();
 
 				await Task.Delay(2000);
-
-				//var items = await DataStore.GetItemsAsync(true);
-
+				
 				var mockItems = new List<Item>
 				{
 					new Item { Id = Guid.NewGuid().ToString(), Category = "Category 1", Text = "First item", Description="This is an item description." },
@@ -79,7 +70,7 @@ namespace FormsIssueProject.ViewModels
 		public class Grouping
 			<K, T> : ObservableCollection<T>
 		{
-			public Grouping(K key, System.Collections.Generic.IEnumerable<T> items)
+			public Grouping(K key, IEnumerable<T> items)
 			{
 				Key = key;
 
